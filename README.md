@@ -16,6 +16,12 @@ Here is a `docker run` command that will do that, assuming you have a `worlds` d
 
 If you wanted to use custom resource packs, a whitelist, or other things, you could also mount those paths as well. Separating the content from the sever executable means that you can safely destroy your Docker container without losing your world. This will come in handy when there are updates to the server app, and you want to redeploy the container.
 
-Hopefully this is helpful to folks. Happy Minecrafting!
+The following mounts are usefull:
 
- -- nguyer
+`yourpath/worlds:/bedrock-server/worlds`
+
+`yourpath/server.properties:/bedrock-server/server.properties`
+
+`yourpath/ops.json:/bedrock-server/ops.json`
+
+`yourpath/whitelist.json:/bedrock-server/whitelist.json`
