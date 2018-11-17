@@ -25,3 +25,8 @@ The following mounts are usefull:
 `yourpath/ops.json:/bedrock-server/ops.json`
 
 `yourpath/whitelist.json:/bedrock-server/whitelist.json`
+
+The whitelist.json file has the following format:
+```json
+[{ "ignoresPlayerLimit":false, "name":"Name" }]
+```
