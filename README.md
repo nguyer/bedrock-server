@@ -23,7 +23,8 @@ This Docker image will download the Bedrock Server app and set it up, along with
         ]
         ```
     4. Configure the `ops.json` and add the operators (I don't know the syntax yet).
-    5. In case you want your already existing world, put it into the worlds folder and adjust the name in the `server.properties`.
+    5. TODO: `permissions.json`
+    6. In case you want your already existing world, put it into the worlds folder and adjust the name in the `server.properties`.
 2. Start the Docker container:
 ```bash
 docker run -d --name=minecraft\
@@ -48,3 +49,12 @@ There are various commands that can be used in the console. Here are a few of th
 | whitelist \<add \| remove\> \<name\> | Adds or removes a player from the whitelist file. The name parameter should be the Xbox Gamertag of the player you want to add or remove. You don't need to specify a XUID here, it will be resolved the first time the player connects. |
 | ops \<list \| reload\> | `list` prints the current used operator list.<br />`reload` makes the server reload the operator list from the ops file. |
 | changesetting \<setting\> \<value\> | Changes a server setting without having to restart the server. Currently only two settings are supported to be changed, `allow-cheats` (`true` or `false`) and `difficulty` (0, `peaceful`, 1, `easy`, 2, `normal`, 3 or `hard`). They do not modify the value that's specified in `server.properties`. |
+
+## Backups
+The server supports taking backups of the world files while the server is running. It's not particularly friendly for taking manual backups, but works better when automated. The backup (from the servers perspective) consists of three commands:
+
+| Command | Description |
+| ------- | ----------- |
+| save hold | This will ask the server to prepare for a backup. It’s asynchronous and will return immediately. |
+| save query | After calling `save hold` you should call this command repeatedly to see if the preparation has finished. When it returns a success it will return a file list (with lengths for each file) of the files you need to copy. The server will not pause while this is happening, so some files can be modified while the backup is taking place. As long as you only copy the files in the given file list and truncate the copied files to the specified lengths, then the backup should be valid. |
+| save resume | When you’re finished with copying the files you should call this to tell the server that it’s okay to remove old files again. |
