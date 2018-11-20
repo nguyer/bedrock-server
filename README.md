@@ -50,11 +50,11 @@ There are various commands that can be used in the console. Here are a few of th
 
 | Command syntax | Description |
 | -------------- | ----------- |
-| kick {`player name` or `xuid`} {reason} | Immediately kicks a player. The reason will be shown on the kicked players screen. |
+| kick {`player name` or `xuid`} {`reason`} | Immediately kicks a player. The reason will be shown on the kicked players screen. |
 | stop | Shuts down the server gracefully. |
 | save {`hold` or `resume` or `query`} | Used to make atomic backups while the server is running. See the backup section for more information. |
 | whitelist {`on` or `off` or `list` or `reload`} | `on` and `off` turns the whitelist on and off. Note that this does not change the value in the `server.properties` file!<br />`list` prints the current whitelist used by the server<br />`reload` makes the server reload the whitelist from the file.
-| whitelist {`add` or `remove`} {name} | Adds or removes a player from the whitelist file. The name parameter should be the Xbox Gamertag of the player you want to add or remove. You don't need to specify a XUID here, it will be resolved the first time the player connects. |
+| whitelist {`add` or `remove`} {`name`} | Adds or removes a player from the whitelist file. The name parameter should be the Xbox Gamertag of the player you want to add or remove. You don't need to specify a XUID here, it will be resolved the first time the player connects. |
 | ops {`list` or `reload`} | `list` prints the current used operator list.<br />`reload` makes the server reload the operator list from the ops file. |
 | changesetting {`setting`} {`value`} | Changes a server setting without having to restart the server. Currently only two settings are supported to be changed, `allow-cheats` (`true` or `false`) and `difficulty` (0, `peaceful`, 1, `easy`, 2, `normal`, 3 or `hard`). They do not modify the value that's specified in `server.properties`. |
 
