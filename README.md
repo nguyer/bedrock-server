@@ -46,7 +46,13 @@ docker run -d --name=minecraft\
 ```
 
 ## Commands
-There are various commands that can be used in the console. Here are a few of them:
+There are various commands that can be used in the console. To access the console, you need to attach to the container with the following command:
+```
+docker attach <container-id>
+```
+To leave the console without exiting the container, use `Ctrl`+`p` + `Ctrl`+`q`.
+
+Here are the commands:
 
 | Command syntax | Description |
 | -------------- | ----------- |
