@@ -5,10 +5,15 @@ Run a bedrock server in a Docker container.
 This Docker image will download the Bedrock Server app and set it up, along with its dependencies.
 
 ## Usage
-1. Prepare your data folder:
-    1. Copy the data folder to some place where docker can use it as mounts (or create all the content manually).
-    2. Configure the `server.properties` to your likings.
-    3. Configure the `whitelist.json` in case you have set `white-list=true` in the above step. There is an example in the provided file. Just fill in the name and add more entries if wanted. The `xuid` is optional and will automatically be added as soon as a matching player connects. Here's also an example of the `whitelist.json` file:
+### New installation
+1. Prepare the persistent volumes:
+    1. Create a volume for the configurations:<br/>
+        `docker volume create --name "bedrock-config"`
+    2. Create a volume for the worlds:<br/>
+        `docker volume create --name "bedrock-worlds"`
+2. Configure the server:
+    1. Configure the `server.properties` to your likings.
+    2. Configure the `whitelist.json` in case you have set `white-list=true` in the above step. Note: The `xuid` is optional and will automatically be added as soon as a matching player connects. Here's an example of a `whitelist.json` file:
         ```json
         [
             {
@@ -22,7 +27,7 @@ This Docker image will download the Bedrock Server app and set it up, along with
             }
         ]
         ```
-    4. Configure the `ops.json` and add the operators. This file consists of a list of `permissions` and `xuid`s. The `permissions` can be `member`, `visitor` or `operator`. The `xuid` can be copied from the `whitelist.json` as soon as the user connected once. An example could look like:
+    3. Configure the `permissions.json` and add the operators. This file consists of a list of `permissions` and `xuid`s. The `permissions` can be `member`, `visitor` or `operator`. The `xuid` can be copied from the `whitelist.json` as soon as the user connected once. An example could look like:
         ```json
         [
             {
@@ -31,19 +36,25 @@ This Docker image will download the Bedrock Server app and set it up, along with
             }
         ]
         ```
-    5. TODO: `permissions.json` (is this really needed?)
-    6. In case you want your already existing world, put it into the worlds folder and adjust the name in the `server.properties`.
-2. Start the Docker container:
-```bash
-docker run -d --name=minecraft\
-    -v 'yourpath/server.properties:/bedrock-server/server.properties'\
-    -v 'yourpath/whitelist.json:/bedrock-server/whitelist.json'\
-    -v 'yourpath/ops.json:/bedrock-server/ops.json'\
-    -v `yourpath/worlds:/bedrock-server/worlds'\
-    -p 19132:19132\
-    --restart=always\
-    roemer/bedrock-server
-```
+3. Start the Docker container:
+    ```bash
+    docker run -d --name=minecraft\
+        -v 'bedrock-config:/bedrock-server/config'\
+        -v 'bedrock-worlds:/bedrock-server/worlds'\
+        -p 19132:19132\
+        --restart=unless-stopped\
+        roemer/bedrock-server
+    ```
+### Updating
+1. Stop the server<br/>
+    ```
+    docker attach minecraft
+    stop
+    ```
+2. Re-create the server with the same settings (either `manually` or with `portainer` or Synologys `clean`).<br/>
+    NOTE: When updating from 1.7, you need to use the new installation guide and put your `worlds` and `config` files into the newly created volumes or add appropriate volume mappings when creating the container before starting it. You also need to rename `ops.json` to `permissions.json`.
+3. Start the server
+    `docker start minecraft`
 
 ## Commands
 There are various commands that can be used in the console. To access the console, you need to attach to the container with the following command:
