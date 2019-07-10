@@ -1,8 +1,10 @@
+ARG BDS_Version=1.12.0.28
 FROM ubuntu:latest
-
-ENV VERSION=1.12.0.28
+ENV VERSION=${BDS_Version}
 
 # Install dependencies, download and extract the bedrock server
+
+RUN if [ "$VERSION" = "latest" ] ; then LATEST_VERSION=$(curl -v --silent  https://www.minecraft.net/en-us/download/server/bedrock/ 2>&1 |grep -o 'https://minecraft.azureedge.net/bin-linux/[^"]*' | sed 's#.*/bedrock-server-##' | sed 's/.zip//') && export VERSION=$LATEST_VERSION && echo "Setting VERSION to $LATEST_VERSION" ; else echo "Using VERSION of $VERSION"; fi
 RUN apt-get update && \
     apt-get install -y unzip curl libcurl4 libssl1.0.0 && \
     curl https://minecraft.azureedge.net/bin-linux/bedrock-server-${VERSION}.zip --output bedrock-server.zip && \
