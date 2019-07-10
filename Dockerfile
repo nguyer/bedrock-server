@@ -1,6 +1,6 @@
 ARG BDS_Version=1.12.0.28
 FROM ubuntu:latest
-ENV VERSION=${BDS_Version}
+ENV VERSION=$BDS_Version
 
 # Install dependencies, download and extract the bedrock server
 
