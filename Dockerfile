@@ -3,11 +3,12 @@ ARG BDS_Version=1.12.1.1
 
 ENV VERSION=$BDS_Version
 
-# Install dependencies, download and extract the bedrock server
+# Install dependencies
 RUN apt-get update && \
     apt-get install -y unzip curl libcurl4 libssl1.0.0 && \
     rm -rf /var/lib/apt/lists/*
 
+# Download and extract the bedrock server
 RUN if [ "$VERSION" = "latest" ] ; then \
         LATEST_VERSION=$( \
             curl -v --silent  https://www.minecraft.net/en-us/download/server/bedrock/ 2>&1 | \
