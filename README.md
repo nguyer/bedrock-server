@@ -20,6 +20,9 @@ This Docker image will download the Bedrock Server app and set it up, along with
         --restart=unless-stopped\
         roemer/bedrock-server
     ```
+3. Prepare the config files
+    1. Either start the server once and stop it
+    2. or put the files from the originla archive
 3. Configure the default files in the `config` volume:
     1. Configure the `server.properties` to your likings.
     2. Configure the `whitelist.json` in case you have set `white-list=true` in the above step. Note: The `xuid` is optional and will automatically be added as soon as a matching player connects. Here's an example of a `whitelist.json` file:
@@ -45,7 +48,7 @@ This Docker image will download the Bedrock Server app and set it up, along with
             }
         ]
         ```
-3. Start the server:<br/>
+4. Start the server:<br/>
     `docker start minecraft`
 
 ### Updating
