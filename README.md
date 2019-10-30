@@ -22,7 +22,7 @@ This Docker image will download the Bedrock Server app and set it up, along with
     ```
 3. Prepare the config files
     1. Either start the server once and stop it
-    2. or put the files from the originla archive
+    2. or copy the files from the original archive
 3. Configure the default files in the `config` volume:
     1. Configure the `server.properties` to your likings.
     2. Configure the `whitelist.json` in case you have set `white-list=true` in the above step. Note: The `xuid` is optional and will automatically be added as soon as a matching player connects. Here's an example of a `whitelist.json` file:
