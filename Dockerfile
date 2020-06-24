@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:bionic
 
 RUN apt-get update
 RUN apt-get install -y unzip curl libcurl4 libssl1.0.0
