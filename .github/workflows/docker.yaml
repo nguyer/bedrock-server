@@ -1,0 +1,24 @@
+name: Docker Main Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Build
+        run: |
+          docker build \
+            --tag ghcr.io/nguyer/bedrock-server:latest .
+
+      - name: Push docker image
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+          docker push ghcr.io/nguyer/bedrock-server:latest
